@@ -1,0 +1,22 @@
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/extras/CUPTI/lib64:/usr/local/cuda/lib64
+
+#Nare Adding alias commands for running docker images and executing them
+RCP_WRK_DIR=/home/nare/wsp/coverage/riverine_coverage_separated/code
+alias run_rcp_dev_container="docker run -it     --env=\"DISPLAY\"     --env=\"QT_X11_NO_MITSHM=1\"     --volume=\"/tmp/.X11-unix:/tmp/.X11-unix:rw\" --name rcp_dev_cont --mount type=bind,source=\"$RCP_WRK_DIR,target=/rcp_dev_code\" rcp_dev:pVI_python_rel "
+alias start_rcp_dev_container="docker start -ai rcp_dev_cont"
+alias exec_rcp_dev_container="docker exec -it rcp_dev_cont bash"
+
+DL_WRK_DIR=/home/nare/wsp/coverage/3DCoverage
+alias run_gpu_tf="docker run -it -p 8888:8888 --gpus  all --env=\"DISPLAY\" --env=\"QT_X11_NO_MITSHM=1\" --volume=\"/tmp/.X11-unix:/tmp/.X11-unix:rw\" --name tf_gpu --mount type=bind,source=\"$DL_WRK_DIR,target=/DL_dev\" tensorflow/tensorflow:2.3.2-gpu"
+alias start_gpu_tf="docker start -ai tf_gpu"
+alias exec_gpu_tf="docker exec -it tf_gpu bash"
+
+WRK_DIR=/home/nare/wsp/coverage/3DCoverage
+alias run_ros_3d_cont="docker run -it --privileged --net=host --env=DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --runtime=nvidia --mount type=bind,source=\"$WRK_DIR,target=/DL_3D_cover\" --name ros_melodic_cnt ros_melodic_gz9:vI /bin/bash"
+alias start_ros_3d_cont="docker start -ai ros_melodic_gz9_cnt"
+alias exec_ros_3d_cont="docker exec -it ros_melodic_gz9_cnt bash"
+
+WRK_DIR=/home/nare/wsp/coverage/3DCoverage
+alias run_kin_ros_3d_cont="docker run -it --privileged --net=host --env=DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --runtime=nvidia --mount type=bind,source=\"$WRK_DIR,target=/DL_3D_cover\" --name ros_kinetic_cnt ros_kinetic:vI /bin/bash"
+alias start_kin_ros_3d_cont="docker start -ai ros_kinetic_cnt"
+alias exec_kin_ros_3d_cont="docker exec -it ros_kinetic_cnt bash"
